@@ -7,7 +7,6 @@ const messageInput = feedbackForm.querySelector('[name="message"]');
 const THROTTLE_TIME = 1000;
 const localStorageKey = 'feedback-form-state';
 
-
 const saveFormState = throttle(() => {
   const formState = {
     email: emailInput.value,
@@ -15,7 +14,6 @@ const saveFormState = throttle(() => {
   };
   localStorage.setItem(localStorageKey, JSON.stringify(formState));
 }, THROTTLE_TIME);
-
 
 function loadFormState(evt) {
   const savedState = localStorage.getItem(localStorageKey);
@@ -26,17 +24,21 @@ function loadFormState(evt) {
   }
 }
 
-
 function onSubmitForm(evt) {
   evt.preventDefault();
 
-  new FormData(evt.currentTarget).forEach((value, name) => {
-      console.log(name, value);
-    });
-    
-    localStorage.removeItem('feedback-form-state');
-    feedbackForm.reset();
-  }
+  const newForm = {
+    email: '',
+    message: '',
+  };
+  const formData = new FormData(evt.currentTarget);
+  formData.forEach((value, name) => {
+    newForm[name] = value;
+  });
+  console.log(newForm);
+  localStorage.removeItem('feedback-form-state');
+  feedbackForm.reset();
+}
 
 window.addEventListener('load', loadFormState);
 feedbackForm.addEventListener('input', saveFormState);
