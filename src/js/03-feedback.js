@@ -4,7 +4,7 @@ const feedbackForm = document.querySelector('.feedback-form');
 const emailInput = feedbackForm.querySelector('[name="email"]');
 const messageInput = feedbackForm.querySelector('[name="message"]');
 
-const THROTTLE_TIME = 1000;
+const THROTTLE_TIME = 500;
 const localStorageKey = 'feedback-form-state';
 
 const saveFormState = throttle(() => {
